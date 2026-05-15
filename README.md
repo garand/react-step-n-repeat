@@ -75,3 +75,12 @@ The repo also includes the original Vite demo app:
 ```bash
 pnpm dev
 ```
+
+## Release Automation
+
+Publishing to npm is automated through GitHub Actions when a new GitHub release is published.
+
+Repository setup required:
+
+- Add an `NPM_TOKEN` repository secret with publish access to npm.
+- Create a GitHub release after the version has been updated and pushed.

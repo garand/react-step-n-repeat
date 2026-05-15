@@ -4,6 +4,8 @@
   "packageManager": "pnpm@11.1.2",
   "type": "module",
   "description": "A React component for tiled step-and-repeat layouts with staggered rows and optional row animation.",
+  "author": "garand",
+  "license": "MIT",
   "keywords": [
     "react",
     "component",
@@ -11,8 +13,19 @@
     "layout",
     "animation"
   ],
+  "homepage": "https://github.com/garand/react-step-n-repeat#readme",
+  "bugs": {
+    "url": "https://github.com/garand/react-step-n-repeat/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garand/react-step-n-repeat.git"
+  },
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./dist/styles.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -23,7 +36,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "dev": "vite",
