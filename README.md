@@ -78,10 +78,9 @@ pnpm dev
 
 ## Release Automation
 
-This repo uses two GitHub Actions:
+This repo uses a single GitHub Action: `publish.yml`.
 
-1. `Create Release`: manually triggered, bumps the version, creates the tag, pushes it, and creates the GitHub release.
-2. `Publish Package`: triggered by that GitHub release, verifies the tagged commit, and publishes to npm.
+It is manually triggered, bumps the version, creates the tag, pushes it, creates the GitHub release, and publishes the package to npm.
 
 Repository setup required:
 
@@ -99,13 +98,13 @@ The idiomatic npm + GitHub workflow is:
 
 For this repo, the publish workflow validates that:
 
-- GitHub release tag `vX.Y.Z`
-- `package.json` version `X.Y.Z`
+- the version bump was applied to `package.json`
+- the resulting npm version is still unpublished
 - npm does not already have that version published
 
 ### Recommended Release Flow
 
-Run the `Create Release` workflow from GitHub Actions and choose one of:
+Run the `Publish Package` workflow from GitHub Actions and choose one of:
 
 - `patch`
 - `minor`
@@ -117,11 +116,6 @@ That workflow will:
 - a Git commit on `main`
 - a matching Git tag like `v0.1.3`
 - a GitHub release from that tag
-
-The publish workflow will then automatically:
-
-- verify the tagged commit
-- verify the version is unpublished on npm
 - publish the package to npm
 
 ### Why this is better
@@ -135,4 +129,4 @@ The publish workflow will then automatically:
 ### Important
 
 Do not create manual GitHub releases for arbitrary version tags.
-Use the `Create Release` workflow so the version bump, tag, GitHub release, and npm publish stay aligned.
+Use the `Publish Package` workflow so the version bump, tag, GitHub release, and npm publish stay aligned.
