@@ -1,0 +1,93 @@
+.app-shell {
+  min-height: 100svh;
+  padding: clamp(24px, 4vw, 56px);
+  display: grid;
+  gap: 28px;
+}
+
+.intro {
+  display: grid;
+  gap: 16px;
+  max-width: 760px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.lede {
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.8vw, 1.125rem);
+}
+
+.demo-frame {
+  height: clamp(360px, 62vh, 720px);
+  padding: clamp(14px, 2vw, 24px);
+  border-radius: 32px;
+  border: 1px solid var(--panel-border);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(8, 15, 30, 0.96));
+  box-shadow: 0 24px 80px rgba(3, 7, 18, 0.45);
+}
+
+.pattern-surface {
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.92));
+}
+
+.tile {
+  /* width: 25px;
+  height: 25px; */
+  line-height: 1;
+  padding: 1rem;
+  font-size: 2rem;
+  display: grid;
+  place-items: center;
+  /* background: rgba(255,0,0,.5); */
+}
+
+.pattern-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(15, 23, 42, 0.62);
+  color: #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.82rem;
+  font-weight: 700;
+  backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 16px 40px rgba(15, 23, 42, 0.28);
+}
+
+.pattern-chip__dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7dd3fc, #f472b6);
+  box-shadow: 0 0 24px rgba(125, 211, 252, 0.55);
+}
+
+@media (max-width: 720px) {
+  .demo-frame {
+    height: 420px;
+  }
+
+  .pattern-chip {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+}

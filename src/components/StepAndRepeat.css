@@ -1,0 +1,67 @@
+.step-and-repeat {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.step-and-repeat__layer {
+  position: absolute;
+  inset: 0;
+  /* pointer-events: none; */
+}
+
+.step-and-repeat__row {
+  position: absolute;
+  inset-inline: 0;
+  overflow: hidden;
+}
+
+.step-and-repeat__track {
+  display: inline-flex;
+  width: max-content;
+}
+
+.step-and-repeat__track--animated {
+  gap: var(--step-and-repeat-gap);
+  animation: step-and-repeat-scroll var(--step-and-repeat-duration) linear infinite;
+  will-change: transform;
+}
+
+.step-and-repeat__sample,
+.step-and-repeat__layer > .step-and-repeat__tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  width: max-content;
+}
+
+.step-and-repeat__track > .step-and-repeat__tile {
+  position: static;
+  display: inline-flex;
+  width: max-content;
+  flex: 0 0 auto;
+}
+
+.step-and-repeat__sample {
+  visibility: hidden;
+  /* pointer-events: none; */
+}
+
+@keyframes step-and-repeat-scroll {
+  from {
+    transform: translateX(var(--step-and-repeat-from));
+  }
+
+  to {
+    transform: translateX(var(--step-and-repeat-to));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step-and-repeat__track--animated {
+    animation: none;
+    transform: translateX(var(--step-and-repeat-from));
+  }
+}
