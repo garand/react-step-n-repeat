@@ -32,6 +32,28 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Validate release tag matches package version
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          RELEASE_VERSION="${GITHUB_REF_NAME#v}"
+
+          if [ "$PACKAGE_VERSION" != "$RELEASE_VERSION" ]; then
+            echo "Release tag version ($RELEASE_VERSION) does not match package.json version ($PACKAGE_VERSION)."
+            echo "Bump package.json first, push it, then create a matching GitHub release tag."
+            exit 1
+          fi
+
+      - name: Ensure npm version is unpublished
+        run: |
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+
+          if npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version > /dev/null 2>&1; then
+            echo "$PACKAGE_NAME@$PACKAGE_VERSION is already published on npm."
+            echo "Bump package.json to a new version before creating another release."
+            exit 1
+          fi
+
       - name: Verify package
         run: pnpm lint && pnpm build && CI=1 pnpm build-storybook
 

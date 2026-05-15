@@ -78,9 +78,61 @@ pnpm dev
 
 ## Release Automation
 
-Publishing to npm is automated through GitHub Actions when a new GitHub release is published.
+This repo uses two GitHub Actions:
+
+1. `Create Release`: manually triggered, bumps the version, creates the tag, pushes it, and creates the GitHub release.
+2. `Publish Package`: triggered by that GitHub release, verifies the tagged commit, and publishes to npm.
 
 Repository setup required:
 
-- Add an `NPM_TOKEN` repository secret with publish access to npm.
-- Create a GitHub release after the version has been updated and pushed.
+- Configure npm Trusted Publishing for this repository/workflow/environment.
+- Keep the `Production` GitHub environment available for the publish workflow.
+
+## Versioning Best Practice
+
+The idiomatic npm + GitHub workflow is:
+
+1. `package.json` is the source of truth for the package version.
+2. The Git tag matches that version exactly, typically as `vX.Y.Z`.
+3. The GitHub release is created from that matching tag.
+4. CI publishes that exact tagged version to npm.
+
+For this repo, the publish workflow validates that:
+
+- GitHub release tag `vX.Y.Z`
+- `package.json` version `X.Y.Z`
+- npm does not already have that version published
+
+### Recommended Release Flow
+
+Run the `Create Release` workflow from GitHub Actions and choose one of:
+
+- `patch`
+- `minor`
+- `major`
+
+That workflow will:
+
+- a version bump in `package.json`
+- a Git commit on `main`
+- a matching Git tag like `v0.1.3`
+- a GitHub release from that tag
+
+The publish workflow will then automatically:
+
+- verify the tagged commit
+- verify the version is unpublished on npm
+- publish the package to npm
+
+### Why this is better
+
+- no manual tag creation
+- no manual GitHub release creation
+- `package.json` remains the version source of truth
+- npm publishes only from a real released tag
+- the published npm version always matches the GitHub release version
+
+### Important
+
+Do not create manual GitHub releases for arbitrary version tags.
+Use the `Create Release` workflow so the version bump, tag, GitHub release, and npm publish stay aligned.
